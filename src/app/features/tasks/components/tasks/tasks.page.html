@@ -21,7 +21,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-toolbar>
+  <ion-toolbar *ngIf="(showCategoryFilter$ | async)">
     <ion-segment [(ngModel)]="selectedCategoryId" (ionChange)="onCategoryChange($event)">
       <ion-segment-button value="all">
         <ion-label>Todas</ion-label>

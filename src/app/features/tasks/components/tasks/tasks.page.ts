@@ -4,6 +4,8 @@ import { Task } from '../../../../models/task.model';
 import { Category } from '../../../../models/category.model';
 import { TaskService } from '../../../../services/task.service';
 import { CategoryService } from '../../../../services/category.service';
+import { FeatureFlagsService } from '../../../../services/feature-flags.service';
+import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 
 @Component({
@@ -17,15 +19,18 @@ export class TasksPage implements OnInit {
   categories: Category[] = [];
   filteredTasks: Task[] = [];
   selectedCategoryId: string = 'all';
+  showCategoryFilter$!: Observable<boolean>;
 
   constructor(
     private taskService: TaskService,
     private categoryService: CategoryService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private featureFlagsService: FeatureFlagsService
   ) {}
 
   async ngOnInit() {
+    this.showCategoryFilter$ = this.featureFlagsService.showCategoryFilter$;
     await this.loadData();
   }
 

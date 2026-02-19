@@ -1,3 +1,10 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Ejemplo de uso del feature flag a nivel global -->
+  <ng-container *ngIf="showCategoryFilter; else appWithoutCategoryFilter">
+    <ion-router-outlet></ion-router-outlet>
+  </ng-container>
+
+  <ng-template #appWithoutCategoryFilter>
+    <ion-router-outlet></ion-router-outlet>
+  </ng-template>
 </ion-app>
