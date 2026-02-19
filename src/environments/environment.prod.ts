@@ -1,12 +1,12 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID',
-    measurementId: 'YOUR_MEASUREMENT_ID',
+    apiKey: "AIzaSyAfGj9lad8kpwaKUrytsK255jGILQMJ_60",
+    authDomain: "my-todo-app-1f899.firebaseapp.com",
+    projectId: "my-todo-app-1f899",
+    storageBucket: "my-todo-app-1f899.firebasestorage.app",
+    messagingSenderId: "146699155364",
+    appId: "1:146699155364:web:fc0ac96d01fc4f23ccf331",
+    measurementId: "G-28W49EZVXG"
   },
 };
