@@ -1,0 +1,81 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Mis Tareas
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigateToCategories()">
+        <ion-icon name="pricetags-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="navigateToTaskForm()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Mis Tareas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedCategoryId" (ionChange)="onCategoryChange($event)">
+      <ion-segment-button value="all">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button *ngFor="let category of categories" [value]="category.id">
+        <ion-label>{{ category.name }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div class="ion-padding">
+    <ion-list>
+      <ion-item-sliding *ngFor="let task of filteredTasks">
+        <ion-item [class.completed]="task.completed">
+          <ion-checkbox 
+            slot="start" 
+            [checked]="task.completed"
+            (ionChange)="toggleTask(task)">
+          </ion-checkbox>
+          <ion-label (click)="navigateToTaskForm(task.id)">
+            <h2>{{ task.title }}</h2>
+            <p *ngIf="task.description">{{ task.description }}</p>
+            <ion-chip [color]="getCategoryColor(task.categoryId)">
+              <ion-label>{{ getCategoryName(task.categoryId) }}</ion-label>
+            </ion-chip>
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteTask(task)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <div class="empty-state" *ngIf="filteredTasks.length === 0">
+      <ion-icon name="checkmark-done-outline" size="large"></ion-icon>
+      <h2>No hay tareas</h2>
+      <p *ngIf="selectedCategoryId === 'all'">
+        ¡Comienza agregando tu primera tarea!
+      </p>
+      <p *ngIf="selectedCategoryId !== 'all'">
+        No hay tareas en esta categoría.
+      </p>
+      <ion-button fill="outline" (click)="navigateToTaskForm()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Tarea
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="navigateToTaskForm()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

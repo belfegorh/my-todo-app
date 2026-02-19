@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tasks"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Categorías
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="navigateToCategoryForm()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Categorías</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="ion-padding">
+    <ion-list>
+      <ion-item-sliding *ngFor="let category of categories">
+        <ion-item (click)="navigateToCategoryForm(category.id)">
+          <ion-avatar slot="start" *ngIf="category.icon">
+            <ion-icon [name]="category.icon" [color]="category.color"></ion-icon>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ category.name }}</h2>
+            <p>{{ categoryTaskCounts[category.id] || 0 }} tarea(s)</p>
+          </ion-label>
+          <ion-chip [color]="category.color || 'medium'" slot="end">
+            <ion-label>{{ category.name }}</ion-label>
+          </ion-chip>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteCategory(category)">
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <div class="empty-state" *ngIf="categories.length === 0">
+      <ion-icon name="pricetags-outline" size="large"></ion-icon>
+      <h2>No hay categorías</h2>
+      <p>
+        Crea categorías para organizar mejor tus tareas.
+      </p>
+      <ion-button fill="outline" (click)="navigateToCategoryForm()">
+        <ion-icon slot="start" name="add-outline"></ion-icon>
+        Agregar Categoría
+      </ion-button>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="navigateToCategoryForm()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
